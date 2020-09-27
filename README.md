@@ -11,7 +11,12 @@
 <!-- * [front-end application]()  -->
 
 ### Documentation
-<!-- * [jsdoc]() -->
+
+* [jsdoc-index](out/caps/1.0.0/index.html)
+* [jsdoc-caps](out/caps/1.0.0/caps.js.html)
+* [jsdoc-global](out/caps/1.0.0/global.html)
+* [jsdoc-driver](out/caps/1.0.0/driver.js.html)
+
 <!-- * [swagger]()  -->
 
 ### Modules

@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node caps.js",
     "test": "jest --verbose --coverage",
-    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json",
     "lint": "eslint '**/*.js'"
   },
   "repository": {
