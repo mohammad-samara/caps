@@ -2,13 +2,13 @@
 require('dotenv').config();
 const net = require('net');
 const faker = require('faker');
-const STORE_NAME = process.env.STORE_NAME || 'Ammar Store';
+const storeName = process.env.storeName || 'Samara Store';
 
 const client = new net.Socket();
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 
-client.connect(PORT, HOST, ()=> {console.log(`${STORE_NAME} got connected on ${HOST}:${PORT}`)});
+client.connect(PORT, HOST, ()=> {console.log(`${storeName} got connected on ${HOST}:${PORT}`)});
 
 const orders = [];
 
@@ -19,6 +19,10 @@ client.on('data',function(data){
   }
 })
 
+client.on('close', function () {
+    console.log("vendor connection is closed!!");
+});
+
 setInterval(()=>{
     makeOrder();
 },5000);
@@ -26,7 +30,7 @@ setInterval(()=>{
 
 function makeOrder(){
     let order = {
-        storeName: STORE_NAME,
+        storeName: storeName,
         orderId: faker.random.uuid(),
         customerName: faker.name.firstName(),
         address: faker.address.streetAddress(),

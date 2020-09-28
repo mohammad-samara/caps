@@ -10,7 +10,7 @@ let socketPool = {};
 let iterator = 0;
 
 server.on('connection',(socket)=>{
-  const id =`Socket-${iterator++}`;
+  const id =`Socket-${iterator++}`;//instead of Math.random so that the id won't repeat and more organised
 
   console.log(`Client with ID ${id} got connected!`);
   socketPool[id] = socket;
