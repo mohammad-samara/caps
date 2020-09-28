@@ -10,7 +10,6 @@ const PORT = process.env.PORT || 3000;
 
 client.connect(PORT, HOST, ()=> {console.log(`${storeName} got connected on ${HOST}:${PORT}`)});
 
-const orders = [];
 
 client.on('data',function(data){
   let recievedObj = JSON.parse(data);
@@ -20,7 +19,7 @@ client.on('data',function(data){
 })
 
 client.on('close', function () {
-    console.log("vendor connection is closed!!");
+    console.log("CAPS (main server) connection is closed");
 });
 
 setInterval(()=>{

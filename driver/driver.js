@@ -13,6 +13,10 @@ client.on('error',(e)=>{
   console.log('Error: ' + e);
 });
 
+client.on('close', function () {
+  console.log('CAPS (main server) connection is closed');
+});
+
 
 function dataParser(data){
   let recievedObj = JSON.parse(data.toString());
