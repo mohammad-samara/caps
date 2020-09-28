@@ -9,7 +9,7 @@ describe('anyThing', ()=> {
       storeName:'process.env.storeName',
       customerName:'faker.name.findName()',
       address:'faker.address.streetAddress()',
-      id:'faker.random.number()',
+      orderId:'faker.random.number()',
     });
     expect(console.log).not.toHaveBeenCalled();  
   });
@@ -21,7 +21,7 @@ describe('pickup', ()=> {
       storeName:'process.env.storeName',
       customerName:'faker.name.findName()',
       address:'faker.address.streetAddress()',
-      id:'faker.random.number()',
+      orderId:'faker.random.number()',
     });
     expect(console.log).toHaveBeenCalled();
   });
@@ -34,7 +34,7 @@ describe('transit', ()=> {
       storeName:'process.env.storeName',
       customerName:'faker.name.findName()',
       address:'faker.address.streetAddress()',
-      id:'faker.random.number()',
+      orderId:'faker.random.number()',
     });
     expect(console.log).toHaveBeenCalled();  
   });
@@ -47,7 +47,7 @@ describe('delivered', ()=> {
       storeName:'process.env.storeName',
       customerName:'faker.name.findName()',
       address:'faker.address.streetAddress()',
-      id:'faker.random.number()',
+      orderId:'faker.random.number()',
     });
     expect(console.log).toHaveBeenCalled();  
   });
