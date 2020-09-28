@@ -14,11 +14,11 @@
 require('dotenv').config();
 const events = require('./events');
 const faker = require('faker');
-events.on('delivered', payload =>  console.log(`VENDOR: Thank you for delivering ${payload.id}`));
+events.on('delivered', payload =>  console.log(`VENDOR: Thank you for delivering ${payload.orderId}`));
 // user fake order every 5 min==>
 setInterval(function(){events.emit('pickup', {
   storeName:process.env.storeName || 'samaraStore',
   customerName:faker.name.findName(),
   address:faker.address.streetAddress(),
-  id:faker.random.uuid(),
+  orderId:faker.random.uuid(),
 });},5000);
