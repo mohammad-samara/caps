@@ -15,8 +15,8 @@ server.on('connection',(socket)=>{
   console.log(`Client with ID ${id} got connected!`);
   socketPool[id] = socket;
 
-  socket.on('end', (end)=>{
-    console.log('connection ended', end);
+  socket.on('end', ()=>{
+    console.log('connection ended from a socket');
     delete socketPool[id];
   });
 
