@@ -1,47 +1,38 @@
 'use strict';
-const net = require('net');
-
 const PORT = process.env.PORT || 3000;
 
-const server = net.createServer(); 
-server.listen(PORT, ()=> console.log(`Server is up on ${PORT}`));
+const io = require('socket.io')(PORT);
 
-let socketPool = {};
-let iterator = 0;
 
-server.on('connection',(socket)=>{
-  const id =`Socket-${iterator++}`;//instead of Math.random so that the id won't repeat and more organised
 
-  console.log(`Client with ID ${id} got connected!`);
-  socketPool[id] = socket;
+const caps = io.of('/caps');
+caps.on('connection',socket=>{
+  console.log('Connected: '+socket.id);
 
-  socket.on('end', ()=>{
-    console.log('connection ended from a socket');
-    delete socketPool[id];
+  socket.on('join', room=>{
+    socket.join(room);
+    console.log('Joined the room: ' + room);
   });
 
-  socket.on('data',(data)=>dataParser(data));
-});
-
-server.on('error', (e)=> {
-  console.log('SERVER ERROR', e);
-});
-
-
-function dataParser(data){
-  let order = JSON.parse(data.toString());
-  if(order.event && order.payload){
+  socket.on('pickup', order=>{
+    io.emit(order);
     let time = new Date();
-    console.log('EVENT',{event:order.event,time,payload: order.payload});
-    broadcast(order);
-  } else {
-    console.log('Non-legitimate object recieved');
-  }
-}
+    order.time = time;
+    console.log('EVENT',order);
+    caps.emit('pickup',order);
+  });
 
-function broadcast(data){
-  let payload = JSON.stringify(data);
-  for (let socket in socketPool){
-    socketPool[socket].write(payload);
-  }
-}
+  socket.on('in-transit', order=>{
+    let time = new Date();
+    order.time = time;
+    console.log('EVENT',order);
+    caps.to(order.storeName).emit('in-transit',order);
+  });
+
+  socket.on('delivered',order=>{
+    let time = new Date();
+    order.time = time;
+    console.log('EVENT',order);
+    caps.to(order.storeName).emit('delivered',order);
+  });
+});
