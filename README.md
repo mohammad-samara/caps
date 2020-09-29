@@ -1,12 +1,12 @@
-# LAB - 17
+# LAB - 18
 <!-- ## Project: Project Name Here -->
-## TCP Server / Message Application
+## Socket.io
 
 ### Author: Mohammad Samara
 
 ### Links and Resources
 
-* [submission PR](https://github.com/mohammad-samara/caps/pull/2)
+* [submission PR](https://github.com/mohammad-samara/caps/pull/3)
 <!-- - [back-end server url](http://xyz.com) (when applicable) -->
 <!-- * [front-end application]()  -->
 
@@ -27,14 +27,25 @@
 * storeName=SamaraStore
 * HOST = localhost
 
+### Modules
+
+#### Events modules
+
+* `./event.js`
+* `./caps.js`
+* `./driver.js`
+* `./vendor.js`
+
+#### Socket.io Modules (they require npm i before working)
+
+* `./driver/driver.js`
+* `./CAPS/caps.js`
+* `./vendor/vendor.js`
+
 #### How to initialize/run your application
 
 * `npm init -y`
 <!-- * use git,postman or sawgger to use crud methods. -->
-
-#### How to use your library (where applicable)
-<!-- * use const lib=require('lib') -->
-const basic = require('../events');
 
 #### Tests
 

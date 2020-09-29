@@ -16,23 +16,37 @@ caps.on('connection',socket=>{
 
   socket.on('pickup', order=>{
     io.emit(order);
-    let time = new Date();
-    order.time = time;
-    console.log('EVENT',order);
+    // order.time = time;
+    let log ={
+      event : 'pickup',
+      time : new Date(),
+      payload : order,
+    };
+    console.log('EVENT',log);
     caps.emit('pickup',order);
   });
 
   socket.on('in-transit', order=>{
-    let time = new Date();
-    order.time = time;
-    console.log('EVENT',order);
+    // let time = new Date();
+    // order.time = time;
+    let log ={
+      event : 'in-transit',
+      time : new Date(),
+      payload : order,
+    };
+    console.log('EVENT',log);
     caps.to(order.storeName).emit('in-transit',order);
   });
 
   socket.on('delivered',order=>{
-    let time = new Date();
-    order.time = time;
-    console.log('EVENT',order);
+    // let time = new Date();
+    // order.time = time;
+    let log ={
+      event : 'delivered',
+      time : new Date(),
+      payload : order,
+    };
+    console.log('EVENT',log);
     caps.to(order.storeName).emit('delivered',order);
   });
 });
