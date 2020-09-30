@@ -1,42 +1,18 @@
 'use strict';
 require('dotenv').config();
-const net = require('net');
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
-const client = new net.Socket();
 
-client.connect(PORT,HOST , ()=>console.log(`Driver is up on ${HOST}:${PORT} `));
+const io = require('socket.io-client');
+const socket = io.connect('http://localhost:3000/caps');
 
-client.on('data',(data)=>dataParser(data));
-
-client.on('error',(e)=>{
-  console.log('Error: ' + e);
-});
-
-client.on('close', function () {
-  console.log('CAPS (main server) connection is closed');
-});
-
-
-function dataParser(data){
-  let recievedObj = JSON.parse(data.toString());
-  if (recievedObj.event === 'pickup'){
-    pickup(recievedObj);
-  }
-}
-
-
-function pickup(order){
+socket.emit('join','driver' );
+socket.on('pickup', (payload)=>{
   setTimeout(()=>{
-    order.event = 'in-transit';
-    let inTransit = JSON.stringify(order);
-    console.log(`Picking up order: ${order.payload.orderId}`);
-    client.write(inTransit);
-  },1000);
+    console.log('Picked up ' + payload.orderId);
+    socket.emit('in-transit',payload);
+  },1500);
+
   setTimeout(()=>{
-    order.event = 'delivered';
-    let delivered = JSON.stringify(order);
-    console.log('Delivered order: ' + order.payload.orderId);
-    client.write(delivered);
+    console.log('Delivered ' + payload.orderId);
+    socket.emit('delivered',payload);
   },3000);
-}
+});
